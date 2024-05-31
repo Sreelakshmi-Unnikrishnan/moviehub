@@ -1,0 +1,62 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .container{
+        margin-top: 30px;
+    }
+    h2{
+        margin-left: 150px;
+    }
+    img{
+        width: 100px;
+        height: 100px;
+    }
+  </style>
+<div class="container border border-dark p-3 mt-10" style="width: 550px">
+  <h2>Edit Movie</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+    <label>Title:</label>
+    <input type="text" name="title" class="form-control" value="{{ movie.title }}" >
+</div>
+<div class="form-group">
+    <label for="poster">Poster:</label>
+    {% if movie.poster %}
+        <img src="{{ movie.poster.url }}" alt="{{ movie.title }} poster" class="img-fluid mb-3">
+    {% endif %}
+    <input type="file" name="poster" class="form-control" id="poster">
+</div>
+    <div class="form-group">
+
+    <label>Description:</label>
+    <textarea name="description" class="form-control">{{ movie.description }}</textarea>
+</div>
+    <div class="form-group">
+
+    <label>Release Date:</label>
+    <input type="date" name="release_date" class="form-control" value="{{ movie.release_date|date:'Y-m-d'  }}">
+</div>
+    <div class="form-group">
+
+    <label>Actors:</label>
+    <input type="text" name="actors" class="form-control" value="{{ movie.actors }}">
+</div>
+<div class="form-group">
+    <label>Category:</label>
+    {% for category in categories %}
+    <input type="checkbox" name="category" value="{{ category.id }}" id="category-{{ category.id }}"{% if category in  selected_categories %} checked{% endif %}>
+    <label for="category-{{ category.id }}">{{ category.name }}</label>
+    {% endfor %}
+</div>
+<div class="form-group">
+
+    <label>Trailer Link:</label>
+    <input type="text" name="trailer_link" class="form-control" value="{{ movie.trailer_link }}">
+</div>
+    <input type="submit" value="Save">
+</form>
+</div>
+{% endblock %}

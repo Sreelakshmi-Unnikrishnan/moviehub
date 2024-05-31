@@ -1,0 +1,42 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .card{
+        margin-top: 30px;
+        display: inline-block;
+    }
+</style>
+<h1>Search Movies</h1>
+<div class="container border border-dark p-3 mt-10" style="width: 550px">
+<form method="get" action="" class="form-group">
+    <input type="text" name="q" placeholder="Search by title" value="{{ query }}" class="form-control"><br>
+    <select name="category" class="form-control">
+        <option value="">All Categories</option>
+        {% for category in categories %}
+            <option value="{{ category.id }}" {% if category.id|stringformat:"s" == selected_category %}selected{% endif %}>
+                {{ category.name }}
+            </option>
+        {% endfor %}
+    </select><br>
+    <input type="submit" value="Search" class="form-control">
+</form>
+</div>{% if movies %}
+<ul>
+{% for movie in movies %}
+    <div class="card" style="width: 400px;">
+        <div class="card-body">
+          <a href="{% url 'view_movie' movie.id %}" class="btn btn-primary">{{ movie.title }}</a>
+          <p class="card-text">{{ movie.description }}</p>
+
+        </div>
+      </div>
+    
+{% endfor %}
+</ul>
+{% else %}
+<p>No movies found.</p>
+{% endif %}
+
+{% endblock %}

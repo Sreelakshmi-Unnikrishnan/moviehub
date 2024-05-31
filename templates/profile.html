@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      
+      img{
+          width: 300px;
+          height: 200px;
+      }
+    h2{
+      margin-left: 50px;
+    }
+    .card{
+      display: inline-block;
+    }
+    </style>
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+         
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" style="color: brown;">Welcome {{ user.username }} to MovieHub</a>
+                  </li>
+              <li class="nav-item">
+                <a class="nav-link active" style="color:blueviolet;" href="{% url 'view_profile' user.id %}">View Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" style="color:blueviolet;" href="{% url 'add_movie' %}">Add Movie</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" style="color:blueviolet;" href="{% url 'genres_list' %}">Genre</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" style="color:blueviolet; margin-left:700px" href="{% url 'search_movies' %}">Search</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" style="color:blueviolet;" href="{% url 'logout' %}">Logout</a>
+              </li>
+          </div>
+        </div>
+      </nav>
+
+      <h2>Movies</h2>
+  <ul>
+    {% for movie in movies %}
+    <div class="card" style="width: 300px;">
+      <img class="card-img-top" src="{{ movie.poster.url }}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{ movie.title }}</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="{% url 'view_movie' movie.id %}" class="btn btn-primary">View Movie</a>
+        <a href="{% url 'submit_review' movie.id %}" class="btn btn-primary">Rate Review</a>
+        
+        <a href="{% url 'view_reviews' movie.id %}" class="btn btn-primary" style="margin-top: 10px;">View Reviews</a>
+
+      </div>
+    </div>
+      <!-- <li><a href="{% url 'view_movie' movie.id %}">{{ movie.title }}</a><br><a href="{% url 'submit_review' movie.id %}">Rate Review</a><br><a href="{% url 'view_reviews' movie.id %}">View Review</a> </li> -->
+    {% endfor %}
+  </ul>
+</body>
+</html>
+{% endblock %}

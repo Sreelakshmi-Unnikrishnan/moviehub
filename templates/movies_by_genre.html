@@ -1,0 +1,31 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    h1{
+        margin-left: 50px;
+        margin-top: 30px;
+    }
+    ul{
+        margin-left: 80px;
+        margin-top: 30px;
+    }
+</style>
+<h1>Movies in {{ genre.name }}</h1>
+
+{% if movies %}
+    <ul>
+    {% for movie in movies %}
+        <li>
+            <h3>{{ movie.title }}</h3>
+            <p>{{ movie.description }}</p>
+            <a href="{% url 'view_movie' movie.id %}" class="btn btn-primary">Click to know more</a>
+
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No movies found in this genre.</p>
+{% endif %}
+{% endblock %}

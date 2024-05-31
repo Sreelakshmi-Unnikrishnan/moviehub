@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .container{
+        margin-top: 50px;
+    }
+</style>
+<div class="container border border-dark p-3 mt-10" style="width: 550px">
+<h1>Submit Review</h1>
+<form method="post" class="form-group">
+    {% csrf_token %}
+    <label for="rating" >Rating:</label>
+    <input type="number" class="form-control" name="rating" id="rating" min="1" max="5" required><br>
+    <label for="comment">Comment:</label>
+    <textarea name="comment" class="form-control" id="comment" required></textarea><br>
+    <input type="submit" value="Submit Review">
+</form>
+</div>
+{% endblock %}

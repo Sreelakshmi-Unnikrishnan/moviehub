@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    h1{
+        margin-left: 50px;
+        margin-top: 30px;
+    }
+    ul{
+        margin-left: 80px;
+        margin-top: 30px;
+    }
+</style>
+<h1 >Genres</h1>
+
+<ul>
+    {% for genre in genres %}
+
+        <li><a href="{% url 'movies_by_genre' genre.id %} " class="btn btn-primary">{{ genre.name }}</a></li>
+        <br>
+    {% endfor %}
+</ul>
+{% endblock %}

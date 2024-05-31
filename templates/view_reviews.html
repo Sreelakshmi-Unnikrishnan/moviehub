@@ -1,0 +1,35 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Reviews for {{ movie.title }}</h1>
+
+{% if reviews %}
+    {% for review in reviews %}
+    <style>
+        .card{
+            background-color: aquamarine;
+            margin-left: 50px;
+            display:flex;
+        }
+        h1{
+            margin-left: 50px;
+        }
+    </style>
+    <div class="card" style="width: 200px;">
+        <div class="card-body">
+          <p class="card-text">Rating: {{ review.rating }}</p>
+          <p class="card-text">Comment: {{ review.comment }}</p>
+          <p class="card-text">User: {{ review.user.username }}</p>
+          <a href="{% url 'profile'  %}" class="btn btn-primary">Go Back</a>
+        </div>
+      </div>
+      <br>
+       
+    {% endfor %}
+    
+{% else %}
+    <p>No reviews yet.</p>
+{% endif %}
+
+{% endblock %}

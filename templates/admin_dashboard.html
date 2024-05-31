@@ -1,0 +1,95 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<h1>Admin Dashboard
+
+<a href="{% url 'logout' %}" class="btn btn-primary" style="margin-left: 900px;">logout</a>
+</h1>
+<h2>Users</h2>
+
+<ul>
+    
+    <table class="table table-bordered" style="width: 600px;">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Users</th>
+            <th scope="col">Operations</th>
+          
+          </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+          <tr>
+            
+            <th scope="row">{{ user.id }}</th>
+            <td>{{ user.username }}</td>
+            <td><a href="{% url 'delete_user' user.id %}" class="btn btn-primary">Delete</a></td>
+            
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>    
+     
+    </ul>
+
+<h2>Movies  <a href="{% url 'add_movies' %}" class="btn btn-primary">Add Movie</a></h2>
+<ul>
+    
+    <table class="table table-bordered" style="width: 600px;">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Movies</th>
+            <th scope="col">Operations</th>
+          
+          </tr>
+        </thead>
+        <tbody>
+            {% for movie in movies %}
+          <tr>
+            
+            <th scope="row">{{ movie.id }}</th>
+            <td>{{ movie.title }}</td>
+            <td><a href="{% url 'delete_movie' movie.id %}" class="btn btn-primary">Delete</a></td>
+            
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>    
+     
+    </ul>
+
+<h2>Genres <a href="{% url 'add_genre' %}" class="btn btn-primary">Add Genre</a></h2>
+
+
+<ul>
+    
+    <table class="table table-bordered" style="width: 600px;">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Genres</th>
+            
+          
+          </tr>
+        </thead>
+        <tbody>
+            {% for genre in genres %}
+          <tr>
+            
+            <th scope="row">{{ genre.id }}</th>
+            <td>{{ genre.name }}</td>
+            
+            
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>    
+     
+    </ul>
+
+
+
+
+{% endblock %}

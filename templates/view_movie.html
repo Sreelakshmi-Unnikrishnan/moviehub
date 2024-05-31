@@ -1,0 +1,40 @@
+
+{% extends "base.html" %}
+{% load static%}
+{% block content %}
+<style>
+    img{
+        width: 200px;
+        height: 200px;
+    }
+    .card{
+        margin-top: 50px;
+        margin-left: 400px;
+    }
+</style>
+<div class="card" style="width: 550px;">
+    <div class="card-body">
+      <h2 class="card-title">{{ movie.title }}</h2>
+      {% if movie.poster %}
+            <img src="{{ movie.poster.url }}" alt="{{ movie.title }} poster" class="img-fluid mb-3">
+        {% else %}
+            <img src="{% static 'images/default_poster.jpg' %}" alt="Default poster" class="img-fluid mb-3">
+        {% endif %}
+      <p class="card-text">Description: {{ movie.description }} </p>
+      <p class="card-text">Release Date: {{ movie.release_date }}</p>
+      <p class="card-text">Actors: {{ movie.actors }}</p>
+      <p class="card-text">Categories:
+        {% for category in movie.category.all %}
+            {{ category.name }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </p>
+    <p class="card-text"><a href="{{ movie.trailer_link }}" target="_blank">Watch Trailer</a></p>
+    {% if movie.added_by == request.user %}
+    <a href="{% url 'edit_movie' movie.id %}" class="btn btn-primary">Edit</a>
+    <a href="{% url 'delete_movie' movie.id %}" class="btn btn-primary">Delete</a>
+  {% endif %}
+  <a href="{% url 'profile'  %}" class="btn btn-primary">Back</a>
+    </div>
+</div>
+
+{% endblock %}
