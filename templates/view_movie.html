@@ -31,7 +31,7 @@
     <p class="card-text"><a href="{{ movie.trailer_link }}" target="_blank">Watch Trailer</a></p>
     {% if movie.added_by == request.user %}
     <a href="{% url 'edit_movie' movie.id %}" class="btn btn-primary">Edit</a>
-    <a href="{% url 'delete_movie' movie.id %}" class="btn btn-primary">Delete</a>
+    <a href="{% url 'delete_movies' movie.id %}" class="btn btn-primary">Delete</a>
   {% endif %}
   <a href="{% url 'profile'  %}" class="btn btn-primary">Back</a>
     </div>

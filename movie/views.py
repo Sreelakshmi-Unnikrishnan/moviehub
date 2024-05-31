@@ -11,7 +11,8 @@ from django.contrib.auth.decorators import user_passes_test
 
 
 def index(request):
-    return render(request, 'index.html')
+    movies = Movie.objects.all()
+    return render(request, 'index.html',{'movies': movies})
 
 def logout_view(request):
     logout(request)
@@ -150,15 +151,16 @@ def edit_movie(request, movie_id):
     return render(request, 'edit_movie.html', {'movie': movie, 'categories': categories,  'selected_categories': selected_categories})
 
 @login_required
-def delete_movie(request, movie_id):
+def delete_movies(request, movie_id):
     movie = get_object_or_404(Movie, id=movie_id)
     if movie.added_by != request.user:
-        return HttpResponseForbidden()
+        return HttpResponseForbidden("You do not have permission to delete this movie.")
+    
     if request.method == 'POST':
         movie.delete()
-        return redirect('profile')
+        return redirect('profile') 
     
-    return HttpResponseForbidden("You do not have permission to delete this movie.")
+    return render(request, 'confirm_delete.html', {'movie': movie})
 @login_required
 def submit_review(request, movie_id):
     if request.method == 'POST':
